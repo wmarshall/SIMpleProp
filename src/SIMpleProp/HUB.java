@@ -15,9 +15,9 @@ public class HUB {
 	public static byte locks[];
 	public static byte memory[];
 	
-	public int cogid;
-	public int cogsused;
-	public int locksused;
+	private int cogID;
+	private int cogsUsed;
+	private int locksUsed;
 	
 	
 	public HUB() {
@@ -26,6 +26,30 @@ public class HUB {
 		memory = new byte[64*1024];
 	}
 	
+	public int getCogID() {
+		return cogID;
+	}
+
+	public void setCogID(int cogID) {
+		this.cogID = cogID;
+	}
+
+	public int getCogsUsed() {
+		return cogsUsed;
+	}
+
+	public void setCogsUsed(int cogsUsed) {
+		this.cogsUsed = cogsUsed;
+	}
+
+	public int getLocksUsed() {
+		return locksUsed;
+	}
+
+	public void setLocksUsed(int locksUsed) {
+		this.locksUsed = locksUsed;
+	}
+
 	public int rdlong(int address) {
 		address &= 0xFFFC;
 		return ((int)(memory[address+3]) << 24) | ((int)(memory[address+2]) << 16) |
@@ -97,7 +121,7 @@ public class HUB {
 	}
 	
 	public int activeCogCount() {
-		return cogsused;
+		return getCogsUsed();
 	}
 	
 	public int locknew() {
@@ -108,19 +132,19 @@ public class HUB {
 			
 			if ((locks[i] & 2) == 0) {
 				locks[i] = 0b11;
-				locksused++;
+				setLocksUsed(getLocksUsed() + 1);
 				return i;
 			}
 			
 		}
 		
-		return i;
+		return -1;
 	}
 	
 	public int lockret(int lock) {
 		lock &= 0b111;
 		locks[lock] = 0;
-		locksused--;
+		setLocksUsed(getLocksUsed() - 1);
 		return lock;
 	}
 	
@@ -146,6 +170,6 @@ public class HUB {
 
 	
 	public int activeLockCount() {
-		return locksused;
+		return getLocksUsed();
 	}
 }

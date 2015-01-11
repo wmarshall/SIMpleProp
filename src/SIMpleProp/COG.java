@@ -103,7 +103,7 @@ public class COG {
 	
 	public boolean hubAccess() {
 		
-		if (hub.cogid == this.id) {
+		if (hub.getCogID() == this.id) {
 			return true;
 		}
 		
