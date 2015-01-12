@@ -1,4 +1,4 @@
-package SIMpleProp;
+package com.elevendustries.simpleprop;
 
 import javax.swing.JFrame;
 

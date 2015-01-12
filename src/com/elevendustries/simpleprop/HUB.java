@@ -1,4 +1,4 @@
-package SIMpleProp;
+package com.elevendustries.simpleprop;
 
 public class HUB {
 	
